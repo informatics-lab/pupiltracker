@@ -8,6 +8,7 @@ var setup_data_gathering = function(){
             var elapsedTime = valArray[1];
             var x = data.x; //these x coordinates are relative to the viewport
             var y = data.y; //these y coordinates are relative to the viewport
+            console.log(x, y)
             pupil_data.push({x: x, y: y, t: elapsedTime});
         });
 

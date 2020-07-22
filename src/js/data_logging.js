@@ -3,14 +3,13 @@ var setup_data_gathering = function(){
     var pupil_data = [];
     
     webgazer.setGazeListener(function(data, elapsedTime) {
-        data.then(function(data, elapsedTime){
+        Promise.all([data, elapsedTime]).then(function(valArray) {
+            var data = valArray[0];
+            var elapsedTime = valArray[1];
             var x = data.x; //these x coordinates are relative to the viewport
             var y = data.y; //these y coordinates are relative to the viewport
-            // console.log(elapsedTime); //elapsed time is based on time since begin was called
-            pupil_data.push([x, y, elapsedTime]);
-        },
-            function(){return;}
-        )
+            pupil_data.push({x: x, y: y, t: elapsedTime});
+        });
 
     }).begin();
 
@@ -25,8 +24,8 @@ var setup_data_gathering = function(){
                 alert("Saved");
             }
         }
-        var data = JSON.stringify(pupil_data);
-        xmlhttp.send(data)
+        var json_data = JSON.stringify(pupil_data);
+        xmlhttp.send(json_data)
     };
 
     document.getElementById("save").onclick = dump_pupil_data;

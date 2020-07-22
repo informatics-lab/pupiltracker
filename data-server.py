@@ -14,7 +14,7 @@ def hi():
 @cross_origin()
 def save_data():
     my_json = request.json
-    path = "./pupil_data.json"
+    path = "./analysis/pupil_data.json"
 
     with open(path, "w") as f:
         json.dump(my_json, f)

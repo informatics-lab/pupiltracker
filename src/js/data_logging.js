@@ -5,10 +5,10 @@ var setup_data_gathering = function(){
     webgazer.setGazeListener(function(data, elapsedTime) {
         data.then(function(data, elapsedTime){
             test = data;
-            var xprediction = data.x; //these x coordinates are relative to the viewport
-            var yprediction = data.y; //these y coordinates are relative to the viewport
+            var x = data.x; //these x coordinates are relative to the viewport
+            var y = data.y; //these y coordinates are relative to the viewport
             // console.log(elapsedTime); //elapsed time is based on time since begin was called
-            pupil_data.push({xprediction, yprediction, elapsedTime});
+            pupil_data.push([xprediction, yprediction, elapsedTime]);
         },
             function(){return;}
         )
@@ -17,16 +17,17 @@ var setup_data_gathering = function(){
 
     var dump_pupil_data = function(){
         xmlhttp = new XMLHttpRequest();
-        var url = "http://127.0.0.1:5000/save-data";
+        var url = "http://localhost:5000/save-data";
         xmlhttp.open("POST", url, true);
-        xmlhttp.setRequestHeader("Content-type", "application/json");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "true");
         xmlhttp.onreadystatechange = function () { //Call a function when the state changes.
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                alert(xmlhttp.responseText);
+                alert("Saved");
             }
         }
         var data = JSON.stringify(pupil_data);
-        xmlhttp.send({data: data})
+        xmlhttp.send(data)
     };
 
     document.getElementById("save").onclick = dump_pupil_data;

@@ -4,11 +4,10 @@ var setup_data_gathering = function(){
     
     webgazer.setGazeListener(function(data, elapsedTime) {
         data.then(function(data, elapsedTime){
-            test = data;
             var x = data.x; //these x coordinates are relative to the viewport
             var y = data.y; //these y coordinates are relative to the viewport
             // console.log(elapsedTime); //elapsed time is based on time since begin was called
-            pupil_data.push([xprediction, yprediction, elapsedTime]);
+            pupil_data.push([x, y, elapsedTime]);
         },
             function(){return;}
         )

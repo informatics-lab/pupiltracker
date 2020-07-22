@@ -28,13 +28,22 @@ window.onload = function() {
     };
 
     var setup_control_toggle = function(){
-        faceOverlay = document.getElementById("webgazerFaceOverlay");
-        
+        var toggle_controls = function(){
+            var state = document.getElementById("webgazerGazeDot").style.display == "block"
+            webgazer.showFaceOverlay(!state);
+            webgazer.showFaceFeedbackBox(!state);
+            webgazer.showPredictionPoints(!state);
+            webgazer.showVideo(!state);
+            document.getElementById("webgazerVideoFeed").style.display = "none" //weirdly there are two of these?!
+        };
+
+        document.getElementById("toggle").onclick = toggle_controls;
     };
 
     function checkIfReady() {
         if (webgazer.isReady()) {
             setup_canvas();
+            setup_control_toggle();
             setup_data_gathering();
         } else {
             setTimeout(checkIfReady, 100);

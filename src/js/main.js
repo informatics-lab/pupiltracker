@@ -25,7 +25,10 @@ window.onload = function() {
             canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
         }, false);
         img.src = "./src/res/data.png"; // Set source path
+    };
 
+    var setup_control_toggle = function(){
+        faceOverlay = document.getElementById("webgazerFaceOverlay");
         
     };
 

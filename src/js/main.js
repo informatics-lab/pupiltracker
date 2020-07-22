@@ -12,18 +12,27 @@ window.onload = function() {
 
 
     //Set up the webgazer video feedback.
-    var setup = function() {
+    var setup_canvas = function() {
 
         //Set up the main canvas. The main canvas is used to calibrate the webgazer.
         var canvas = document.getElementById("plotting_canvas");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         canvas.style.position = 'fixed';
+
+        var img = new Image();   // Create new img element
+        img.addEventListener('load', function() {
+            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+        }, false);
+        img.src = "./src/res/data.png"; // Set source path
+
+        
     };
 
     function checkIfReady() {
         if (webgazer.isReady()) {
-            setup();
+            setup_canvas();
+            setup_data_gathering();
         } else {
             setTimeout(checkIfReady, 100);
         }

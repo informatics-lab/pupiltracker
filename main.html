@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Pupil tracer</title>
-  <meta name="description" content="The HTML5 Herald">
+  <title>Pupil Tracker</title>
+  <meta name="description" content="Pupil Tracker">
   <meta name="author" content="SitePoint">
 
   <link rel="stylesheet" href="./src/css/style.css">
@@ -15,9 +15,9 @@
 <body>
   <script src="./src/js/main.js"></script>
   <script src="./src/js/webgazer.js"></script>
-
-  <div>
-    <img src="./src/res/data.png" class="dataDiv"></img>
-  </div>
+  <script src="./src/js/data_logging.js"></script>
+  <canvas id="plotting_canvas" width="1280" height="604" style="cursor: crosshair; position: fixed;"></canvas>
+  <button style="float: right; z-index: -1;", id="toggle">Hide/Display tracking</button>
+  <button style="float: right; z-index: -1;", id="save">Save session</button>
 </body>
 </html>

@@ -22,7 +22,7 @@ window.onload = function() {
 
         var img = new Image();   // Create new img element
         img.addEventListener('load', function() {
-            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height); // what about aspect ratio
         }, false);
         img.src = "./src/res/data.png"; // Set source path
     };

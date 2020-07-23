@@ -26,7 +26,7 @@ var setup_data_gathering = function(){
         }
         var c = document.getElementById("plotting_canvas");
         var viewport_data = JSON.stringify({w: c.width, h: c.height})
-        xmlhttp.setRequestHeader("viewport", viewport_data);
+        xmlhttp.setRequestHeader("viewport", viewport_data); // is this weird?
         var json_data = JSON.stringify(pupil_data);
         xmlhttp.send(json_data)
     };

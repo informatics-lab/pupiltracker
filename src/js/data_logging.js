@@ -8,7 +8,6 @@ var setup_data_gathering = function(){
             var elapsedTime = valArray[1];
             var x = data.x; //these x coordinates are relative to the viewport
             var y = data.y; //these y coordinates are relative to the viewport
-            console.log(x, y)
             pupil_data.push({x: x, y: y, t: elapsedTime});
         });
 
@@ -25,6 +24,9 @@ var setup_data_gathering = function(){
                 alert("Saved");
             }
         }
+        var c = document.getElementById("plotting_canvas");
+        var viewport_data = JSON.stringify({w: c.width, h: c.height})
+        xmlhttp.setRequestHeader("viewport", viewport_data);
         var json_data = JSON.stringify(pupil_data);
         xmlhttp.send(json_data)
     };

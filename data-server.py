@@ -13,11 +13,15 @@ def hi():
 @app.route('/save-data', methods=['POST'])
 @cross_origin()
 def save_data():
-    my_json = request.json
-    path = "./analysis/pupil_data.json"
+    viewport = request.headers["viewport"]
+    pupil_data = request.json
 
-    with open(path, "w") as f:
-        json.dump(my_json, f)
+    with open("./analysis/pupil_data.json", "w") as f:
+        json.dump(pupil_data, f)
+
+    with open("./analysis/viewport.json", "w") as f:
+        json.dump(viewport, f)
+
     return "200"
 
 

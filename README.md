@@ -10,7 +10,7 @@ You will need conda
 1. `conda env create -f environment.yml`
 1. `conda activate pupiltracking
 1. `python simple-https-server.py`
-1. in a new terminal `python data-server.py`
+1. in a new terminal `conda activate pupiltracking` and then `python data-server.py`
 1. in a browser go to `http://localhost:4443/main.html
 
 ## Use

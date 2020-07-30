@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 def https_server():
     httpd = http.server.HTTPServer(('localhost', 4443), http.server.SimpleHTTPRequestHandler)
-    httpd.socket = ssl.wrap_socket(httpd.socket, certfile='./server.pem', server_side=True)
+    httpd.socket = ssl.wrap_socket(httpd.socket, certfile='./server3.pem', server_side=True)
     httpd.serve_forever()
 
 

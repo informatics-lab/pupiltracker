@@ -29,10 +29,28 @@ class TestStringMethods(unittest.TestCase):
                                                       {"x": 0.4, "y": 0.4, "t": 1}]),
                                         (100, 100), (5./100., 3./100.))
 
-    def test_edge_splats(self):
+    def test_lower_edge_splats(self):
         heatmap = analysis.calc_heatmap(pd.DataFrame([{"x": 0.0, "y": 0.5, "t": 0},
                                                       {"x": 0.4, "y": 0.0, "t": 1},
                                                       {"x": 0.0, "y": 0.0, "t": 2}]),
+                                        (100, 100), (5./100., 3./100.))
+
+    def test_higher_edge_splats(self):
+        heatmap = analysis.calc_heatmap(pd.DataFrame([{"x": 1.0, "y": 0.5, "t": 0},
+                                                      {"x": 0.4, "y": 1.0, "t": 1},
+                                                      {"x": 1.0, "y": 1.0, "t": 2}]),
+                                        (100, 100), (5./100., 3./100.))
+
+    def test_negative_splats(self):
+        heatmap = analysis.calc_heatmap(pd.DataFrame([{"x": -1.0, "y": 0.5, "t": 0},
+                                                      {"x": 0.4, "y": -1.0, "t": 1},
+                                                      {"x": -1.0, "y": 1.0, "t": 2}]),
+                                        (100, 100), (5./100., 3./100.))
+
+    def test_positive_edge_splats(self):
+        heatmap = analysis.calc_heatmap(pd.DataFrame([{"x": 2.0, "y": 0.5, "t": 0},
+                                                      {"x": 0.4, "y": 2.0, "t": 1},
+                                                      {"x": 2.0, "y": 2.0, "t": 2}]),
                                         (100, 100), (5./100., 3./100.))
 
 

@@ -124,19 +124,9 @@ def calc_heatmap(frac_pupil_data, shape, accuracy_std=None, heat_range=3):
         
 
     heatmap = np.zeros(shape)
-    # good = []
-    # bad = []
     for row in frac_pupil_data.itertuples(name=None):
         add_splat(heatmap, splat, (row[1], row[2])) 
-    #     try:
-    #         add_splat(heatmap, splat, (row[1], row[2]))  
-    #         good.append(row[0])
-    #     except:
-    #         bad.append(row[0])
-
-    # print(good)
-    # print(bad)
-
+    
     return heatmap
 
 

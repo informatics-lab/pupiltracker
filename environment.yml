@@ -1,4 +1,4 @@
-name: pupiltracking
+name: py3
 channels:
   - conda-forge
   - defaults
@@ -8,10 +8,10 @@ dependencies:
   - boost-cpp=1.72.0=hef959ae_2
   - brotlipy=0.7.0=py38h64e0658_1000
   - bzip2=1.0.8=h0b31af3_2
-  - ca-certificates=2020.6.20=hecda079_0
+  - ca-certificates=2020.6.24=0
   - cairo=1.16.0=ha8983da_1005
   - cartopy=0.18.0=py38hc94dab3_1
-  - certifi=2020.6.20=py38h32f6830_0
+  - certifi=2020.6.20=py38_0
   - cf-units=2.1.4=py38h65ad66c_0
   - cffi=1.14.0=py38h356ff06_0
   - cfitsio=3.470=hddc9c06_5
@@ -85,7 +85,7 @@ dependencies:
   - numpy=1.19.0=py38h598c1e0_0
   - olefile=0.46=py_0
   - openjpeg=2.3.1=h254dc36_3
-  - openssl=1.1.1g=h0b31af3_0
+  - openssl=1.1.1g=h1de35cc_0
   - owslib=0.20.0=py_0
   - packaging=20.4=pyh9f0ad1d_0
   - pandas=1.0.5=py38h5fc983b_0

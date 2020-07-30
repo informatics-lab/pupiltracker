@@ -1,5 +1,5 @@
 var setup_data_gathering = function(){
-    var record_tracking_data = true;
+    var record_tracking_data = false;
     var record_accuracy_data = false;
 
     var tracking_data = [];
@@ -40,11 +40,9 @@ var setup_data_gathering = function(){
     };
 
     var measure_accuracy = function(){
-        alert("Stare at the tip of Cornwall for the next five seconds")
-        var canvas = document.getElementById("plotting_canvas");
-        var ctx = canvas.getContext("2d")
-        var w = canvas.width / 2;
-        var h = canvas.height / 2;
+        document.getElementById("calibration_dot").style.display = "block";
+        alert("Stare at the orange dot for the next five seconds")
+
         var orig_record_state = record_tracking_data;
         record_tracking_data = false;
         record_accuracy_data = true;
@@ -58,11 +56,22 @@ var setup_data_gathering = function(){
         wait(5000).then(() => {
             record_accuracy_data = false;
             alert("Finished accuracy recording")
+            document.getElementById("calibration_dot").style.display = "none";
             record_tracking_data = orig_record_state;
             console.log(accuracy_data)
         });
     };
 
     document.getElementById("accuracy").onclick = measure_accuracy;
-    document.getElementById("save").onclick = dump_pupil_data;
+    document.getElementById("session").onclick = function (){
+        record_tracking_data = !record_tracking_data
+        if(record_tracking_data){ //save
+            document.getElementById("session").innerHTML = "Stop recording";
+            document.getElementById("plotting_canvas").style.display = "block";
+        }else{ // start recording
+            document.getElementById("session").innerHTML = "Start recording";
+            document.getElementById("plotting_canvas").style.display = "none";
+            dump_pupil_data()
+        }
+    };
 };

@@ -13,12 +13,12 @@ window.onload = function() {
 
     //Set up the webgazer video feedback.
     var setup_canvas = function() {
-
         //Set up the main canvas. The main canvas is used to calibrate the webgazer.
         var canvas = document.getElementById("plotting_canvas");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         canvas.style.position = 'fixed';
+        canvas.style.display = 'none'; //hidden by default
 
         var img = new Image();   // Create new img element
         img.addEventListener('load', function() {
@@ -28,13 +28,19 @@ window.onload = function() {
     };
 
     var setup_control_toggle = function(){
+        var controls_visible = true; 
         var toggle_controls = function(){
-            var state = document.getElementById("webgazerGazeDot").style.display == "block"
-            webgazer.showFaceOverlay(!state);
-            webgazer.showFaceFeedbackBox(!state);
-            webgazer.showPredictionPoints(!state);
-            webgazer.showVideo(!state);
-            document.getElementById("webgazerVideoFeed").style.display = "none" //weirdly there are two of these?!
+            controls_visible = !controls_visible;
+            var display = controls_visible ? "block" : "none";
+            console.log(display)
+            console.log(controls_visible)
+            webgazer.showFaceOverlay(controls_visible);
+            webgazer.showFaceFeedbackBox(controls_visible);
+            webgazer.showPredictionPoints(controls_visible);
+            webgazer.showVideo(controls_visible);
+            document.getElementById("webgazerVideoFeed").style.display = display; //weirdly there are two of these?!
+            document.getElementById("webgazerFaceFeedbackBox").style.display = display; //weirdly there are two of these?!
+            document.getElementById("webgazerDot").style.display = display; //weirdly there are two of these?!
         };
 
         document.getElementById("toggle").onclick = toggle_controls;

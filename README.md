@@ -19,8 +19,8 @@ The web app code is located in `src`. Most javascript files are dependencies and
 Analysis code is in the `analysis` directory. `generate.py` takes the local NetCDF file and generates a borderless image plot. `analyse.py` takes pupil data and creates a plot of dwell time as a function of binned data value.
 
 Todo:
-* investigate accuracy
-* adapt the data saving to send a proper json and not hide stuff in the parameters
+* investigate accuracy [DONE?]
+* adapt the data saving to send a proper json and not hide stuff in the parameters [DONE]
 * use cartopy to do the lookup of data taking the image projection into account.
-* calibrate on mouseclick [DONE?]
-* heatmap creator
+* calibrate on mouseclick [DONE]
+* heatmap creator [DONE]

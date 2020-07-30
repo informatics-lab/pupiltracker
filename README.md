@@ -3,6 +3,8 @@
 This proof of concept demonstrates how we could use pupil tracking to investigate how people ingest information from atmospheric science visualisations.
 
 ## Installation/Setup
+You will need conda
+
 1. `git clone git@github.com:niallrobinson/pupiltracker.git`
 1. `cd pupiltracker`
 1. `conda env create -f environment.yml`

@@ -1,4 +1,4 @@
-name: py3
+name: pupiltracking
 channels:
   - conda-forge
   - defaults

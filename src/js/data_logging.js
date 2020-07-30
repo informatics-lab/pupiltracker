@@ -40,6 +40,7 @@ var setup_data_gathering = function(){
     };
 
     var measure_accuracy = function(){
+        accuracy_data = []
         document.getElementById("calibration_dot").style.display = "block";
         alert("Stare at the orange dot for the next five seconds")
 

@@ -1,7 +1,8 @@
 import unittest
 import pandas as pd
-import analysis
+import analysis_tools as analysis
 import matplotlib.pyplot as plt
+
 
 class TestStringMethods(unittest.TestCase):
 
@@ -23,13 +24,16 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(frac_coords["y"][0], 0.1)
         self.assertEqual(frac_coords["x"][9], 0.1)
 
-    def test_heat_map(self):
+    def test_mid_splats(self):
         heatmap = analysis.calc_heatmap(pd.DataFrame([{"x": 0.5, "y": 0.5, "t": 0},
                                                       {"x": 0.4, "y": 0.4, "t": 1}]),
-            (100, 100), (5./100., 3./100.))
-        # plt.imshow(heatmap)
-        # plt.show()
-        # eyeballed it - this test passes
+                                        (100, 100), (5./100., 3./100.))
+
+    def test_edge_splats(self):
+        heatmap = analysis.calc_heatmap(pd.DataFrame([{"x": 0.0, "y": 0.5, "t": 0},
+                                                      {"x": 0.4, "y": 0.0, "t": 1},
+                                                      {"x": 0.0, "y": 0.0, "t": 2}]),
+                                        (100, 100), (5./100., 3./100.))
 
 
 if __name__ == '__main__':

@@ -66,36 +66,34 @@ def analyse_accuracy_tracking(accuracy_data, stare_pt):
     accuracy_data: DatFrame of x, y,t
     stare_pt: (x, y) of the point that the user was told to stare at
     """
-    var = (accuracy_data["x"].var(), accuracy_data["y"].var())
+    std = (accuracy_data["x"].std(), accuracy_data["y"].std())
     bias = (accuracy_data["x"].mean()-stare_pt[0], accuracy_data["y"].mean()-stare_pt[1])
 
-    return var, bias
+    return std, bias
 
 
-def calc_heatmap(frac_pupil_data, shape, accuracy_var=None, heat_range=5):
+def calc_heatmap(frac_pupil_data, shape, accuracy_std=None, heat_range=3):
     """
     * frac_pupil_data: DataFrame of x, y, t
     * shape: (w, h) shape of heatmap array to create
-    * accuracy_var: (x_var, y_var) error from the fractional accuracy calibration data.
-        Default no variance
+    * accuracy_std: (x_std, y_std) standard deviation from the fractional accuracy calibration data.
+        Default to point
     * heat_range: (int) number of sigmas to propogate heat in each direction 
 
     """
 
-    if not accuracy_var:
+    if not accuracy_std:
         splat = np.array([[1.0]])
     else:
-        frac_var_x, frac_var_y = accuracy_var
-        frac_var_x *= 1000
-        frac_var_y *= 1
-        x_size = int(frac_var_x*heat_range*2*shape[0])
-        y_size = int(frac_var_y*heat_range*2*shape[1])
+        frac_std_x, frac_std_y = accuracy_std
+        x_size = int(frac_std_x*heat_range*2*shape[0])
+        y_size = int(frac_std_y*heat_range*2*shape[1])
         splat_x = sp.stats.norm.pdf(range(x_size),
                                     0.5*x_size,
-                                    frac_var_x*shape[0])
+                                    frac_std_x*shape[0])
         splat_y = sp.stats.norm.pdf(range(y_size),
                                     0.5*y_size,
-                                    frac_var_y*shape[0])
+                                    frac_std_y*shape[0])
 
         splat = splat_x[:, None] * splat_y[None, :]
 
@@ -113,9 +111,9 @@ def calc_heatmap(frac_pupil_data, shape, accuracy_var=None, heat_range=5):
         hm_yslice = slice(clamp_to_range(int(round(target_y_heatmap-splat_y_halfsize)), 0, heatmap.shape[1]),
                           clamp_to_range(int(round(target_y_heatmap+splat_y_halfsize)), 0, heatmap.shape[1]))
         sp_xslice = slice(clamp_to_range(int(round(splat_x_halfsize-target_x_heatmap)), 0, splat.shape[0]),
-                          clamp_to_range(int(round(target_x_heatmap+splat_x_halfsize)), 0, splat.shape[0]))
+                          clamp_to_range(int(round(target_x_heatmap+2*splat_x_halfsize)), 0, splat.shape[0]))
         sp_yslice = slice(clamp_to_range(int(round(splat_y_halfsize-target_y_heatmap)), 0, splat.shape[1]),
-                          clamp_to_range(int(round(target_y_heatmap+splat_y_halfsize)), 0, splat.shape[1]))
+                          clamp_to_range(int(round(target_y_heatmap+2*splat_y_halfsize)), 0, splat.shape[1]))
 
         heatmap[hm_xslice, hm_yslice] += splat[sp_xslice, sp_yslice]
 
@@ -169,30 +167,4 @@ def calc_heatmap(frac_pupil_data, shape, accuracy_var=None, heat_range=5):
 # print(res)
 
 if __name__ == "__main__":
-    import matplotlib.pyplot as plt
-    import iris.plot as iplt
-
-    pupil_data, accuracy_data = load_webapp_data("./pupil_data.json")
-    image_data = iris.load_cube("./global_daily_pmsl_mean_20200509.nc")
-
-    var, bias = analyse_accuracy_tracking(accuracy_data, (0.5, 0.5))
-    print(var)
-    plt.scatter(accuracy_data['x'], accuracy_data['y'])
-    plt.xlim(0.0, 1.0)
-    plt.ylim(0.0, 1.0)
-    plt.title("Calibration measurement")
-
-    # var = (var[0]*100, var[1]*100)
-    hm = calc_heatmap(pupil_data, image_data.shape, var)
-    heatmap = image_data.copy(data=hm)
-
-    plt.figure()
-    plt.subplot(1,2,1)
-    plt.title("Field")
-    iplt.pcolormesh(image_data)
-    plt.gca().coastlines()
-    plt.subplot(1,2,2)
-    plt.title("Heat Map")
-    iplt.pcolormesh(heatmap)
-    plt.gca().coastlines()
-    plt.show()
+  pass

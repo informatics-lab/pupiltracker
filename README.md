@@ -2,6 +2,11 @@
 
 This proof of concept demonstrates how we could use pupil tracking to investigate how people ingest information from atmospheric science visualisations.
 
+Top tips:
+* Make sure your face/eyes are well illuminated
+* If the pupil tracking is inaccurate, look at the mouse pointer and click to add a new calibration point. Be sure to do this all over the screen.
+* Bigger screen will increase the accuracy
+
 There are two servers, one for serving HTML and the other providing an API for saving data. You can start them like this
 
 `python simple-htts-server.py`
@@ -17,3 +22,5 @@ Todo:
 * investigate accuracy
 * adapt the data saving to send a proper json and not hide stuff in the parameters
 * use cartopy to do the lookup of data taking the image projection into account.
+* calibrate on mouseclick [DONE?]
+* heatmap creator

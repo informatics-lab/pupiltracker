@@ -63,8 +63,10 @@ var setup_data_gathering = function(){
     };
 
     document.getElementById("accuracy").onclick = measure_accuracy;
+
     document.getElementById("session").onclick = function (){
         record_tracking_data = !record_tracking_data
+        console.log(record_tracking_data)
         if(record_tracking_data){ //save
             document.getElementById("session").innerHTML = "Stop recording";
             document.getElementById("plotting_canvas").style.display = "block";

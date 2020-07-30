@@ -103,13 +103,13 @@ def calc_heatmap(frac_pupil_data, shape, accuracy_std=None, heat_range=3):
         splat_x_size, splat_y_size = splat.shape
         heatmap_x_size, heatmap_y_size = heatmap.shape
 
-        traget_x_frac, target_y_frac = target_frac
+        target_x_frac, target_y_frac = target_frac
 
         target_x_heatmap = target_frac[0]*heatmap.shape[0]
         target_y_heatmap = target_frac[1]*heatmap.shape[1]
 
-        target_x_splat = (splat_x_size/2.0) + (heatmap.shape[0]/2.0-target_x_heatmap) # change to splat FoR
-        target_y_splat = (splat_y_size/2.0) + (heatmap.shape[0]/2.0-target_y_heatmap) # change to splat FoR
+        target_x_splat = (splat_x_size/2.0) + (heatmap.shape[0]/2.0) - target_x_heatmap # change to splat FoR
+        target_y_splat = (splat_y_size/2.0) + (heatmap.shape[1]/2.0) - target_y_heatmap # change to splat FoR
 
         hm_xslice = slice(clamp_to_range(int(round(target_x_heatmap-splat_x_size/2.0)), 0, heatmap.shape[0]),
                           clamp_to_range(int(round(target_x_heatmap+splat_x_size/2.0)), 0, heatmap.shape[0]))
@@ -119,22 +119,9 @@ def calc_heatmap(frac_pupil_data, shape, accuracy_std=None, heat_range=3):
                           clamp_to_range(int(round(target_x_splat+heatmap_x_size/2.0)), 0, splat.shape[0]))
         sp_yslice = slice(clamp_to_range(int(round(target_y_splat-heatmap_y_size/2.0)), 0, splat.shape[1]),
                           clamp_to_range(int(round(target_y_splat+heatmap_y_size/2.0)), 0, splat.shape[1]))
-        # sp_xslice = slice(clamp_to_range(int(round(splat_x_size+)), 0, splat.shape[0]),
-        #                   clamp_to_range(int(round(target_x_heatmap+2*splat_x_halfsize)), 0, splat.shape[0]))
-        # sp_yslice = slice(clamp_to_range(int(round(splat_y_halfsize-target_y_heatmap)), 0, splat.shape[1]),
-        #                   clamp_to_range(int(round(target_y_heatmap+2*splat_y_halfsize)), 0, splat.shape[1]))
 
-        try:
-            heatmap[hm_xslice, hm_yslice] += splat[sp_xslice, sp_yslice]
-        except:
-            print ("target x", target_frac[0])
-            print("target_x_splat", target_x_splat)
-            print("hm_xslice", hm_xslice)
-            print("sp_xslice", sp_xslice)
-            print("splat shape x", splat.shape[0])
-            
-            raise
-
+        heatmap[hm_xslice, hm_yslice] += splat[sp_xslice, sp_yslice]
+        
 
     heatmap = np.zeros(shape)
     # good = []

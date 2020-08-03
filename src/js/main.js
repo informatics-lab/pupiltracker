@@ -1,5 +1,5 @@
-window.onload = function() {
-
+window.onload = function(){
+    alert("This webpage is a proof of concept and not for public consumption. It emplies no level of quality, accuary, ability or anything else.")
     //start the webgazer tracker
     webgazer.setRegression('ridge') /* currently must set regression and tracker */
         //.setTracker('clmtrackr')

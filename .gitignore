@@ -1,3 +1,6 @@
 server.pem
 analysis/pupil_data.json
 *__pycache__*
+Pip*
+zappa*
+requirements.txt

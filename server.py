@@ -1,17 +1,13 @@
 import json
-from flask import Flask, request
-from flask_cors import cross_origin
-app = Flask(__name__)
+from flask import Flask, request, render_template
+app = Flask(__name__, static_url_path='', static_folder="static")
 
 
-@app.route('/', methods=['GET'])
-def hi():
-    print("hello world")
-    return "200"
-
+@app.route('/')
+def main_page():
+    return app.send_static_file("./main.html")
 
 @app.route('/save-data', methods=['POST'])
-@cross_origin()
 def save_data():
     pupil_data = request.json
 

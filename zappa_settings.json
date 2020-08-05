@@ -1,0 +1,12 @@
+{
+    "dev": {
+        "app_function": "server.app",
+        "aws_region": "eu-west-2",
+        "profile_name": "default",
+        "project_name": "pupiltracker",
+        "runtime": "python3.8",
+        "s3_bucket": "pupiltracking",
+        "certificate_arn": $CERT_ARN,
+        "domain": $DOMAIN
+    }
+}

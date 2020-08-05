@@ -24,7 +24,19 @@ window.onload = function(){
         img.addEventListener('load', function() {
             canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height); // what about aspect ratio
         }, false);
-        img.src = "https://pupiltracking.s3.eu-west-2.amazonaws.com/images/data.png"; // this may be problematic if it takes time to load
+
+        console.log("here")
+        xmlhttp = new XMLHttpRequest();
+        var api_url = "get-image-url";
+        xmlhttp.open("GET", api_url);
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                imgurl = xmlhttp.responseText
+                img.src = imgurl // this may be problematic if it takes time to load
+            }
+        }
+        xmlhttp.send()
+
     };
 
     var setup_control_toggle = function(){

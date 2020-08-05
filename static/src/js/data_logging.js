@@ -4,6 +4,7 @@ var setup_data_gathering = function(){
 
     var tracking_data = [];
     var accuracy_data = [];
+    var data = {x: null, y: null};
     
     webgazer.setGazeListener(function(data, elapsedTime) {
         Promise.all([data, elapsedTime]).then(function(valArray) {
@@ -37,7 +38,6 @@ var setup_data_gathering = function(){
     var dump_pupil_data = function(){
         xmlhttp = new XMLHttpRequest();
         var url = "save-data";
-        console.log(url)
         xmlhttp.open("POST", url, true);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "true");

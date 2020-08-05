@@ -24,7 +24,7 @@ window.onload = function(){
         img.addEventListener('load', function() {
             canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height); // what about aspect ratio
         }, false);
-        img.src = "./src/res/data.png"; // Set source path
+        img.src = "https://pupiltracking.s3.eu-west-2.amazonaws.com/images/data.png"; // this may be problematic if it takes time to load
     };
 
     var setup_control_toggle = function(){

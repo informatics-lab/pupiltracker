@@ -11,34 +11,6 @@ window.onload = function(){
         .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
 
 
-    //Set up the webgazer video feedback.
-    var setup_canvas = function() {
-        //Set up the main canvas. The main canvas is used to calibrate the webgazer.
-        var canvas = document.getElementById("plotting_canvas");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        canvas.style.position = 'fixed';
-        canvas.style.display = 'none'; //hidden by default
-
-        var img = new Image();   // Create new img element
-        img.addEventListener('load', function() {
-            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height); // what about aspect ratio
-        }, false);
-
-        console.log("here")
-        xmlhttp = new XMLHttpRequest();
-        var api_url = "get-image-url";
-        xmlhttp.open("GET", api_url);
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                imgurl = xmlhttp.responseText
-                img.src = imgurl // this may be problematic if it takes time to load
-            }
-        }
-        xmlhttp.send()
-
-    };
-
     var setup_control_toggle = function(){
         var controls_visible = true; 
         var toggle_controls = function(){
@@ -60,7 +32,6 @@ window.onload = function(){
 
     function checkIfReady() {
         if (webgazer.isReady()) {
-            setup_canvas();
             setup_control_toggle();
             setup_data_gathering();
         } else {

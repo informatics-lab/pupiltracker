@@ -5,6 +5,7 @@ var setup_data_gathering = function(){
     var tracking_data = [];
     var accuracy_data = [];
     var data = {x: null, y: null};
+    var imgurl = null;
     
     webgazer.setGazeListener(function(data, elapsedTime) {
         Promise.all([data, elapsedTime]).then(function(valArray) {
@@ -21,6 +22,33 @@ var setup_data_gathering = function(){
         });
 
     }).begin();
+
+        //Set up the webgazer video feedback.
+    var setup_canvas = function() {
+        //Set up the main canvas. The main canvas is used to calibrate the webgazer.
+        var canvas = document.getElementById("plotting_canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.position = 'fixed';
+        canvas.style.display = 'none'; //hidden by default
+
+        var img = new Image();   // Create new img element
+        img.addEventListener('load', function() {
+            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height); // what about aspect ratio
+        }, false);
+
+        xmlhttp = new XMLHttpRequest();
+        var api_url = "get-image-url";
+        xmlhttp.open("GET", api_url);
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                imgurl = xmlhttp.responseText;
+                img.src = imgurl; // this may be problematic if it takes time to load
+            }
+        }
+        xmlhttp.send()
+    };
+    setup_canvas();
 
     var getUID = function() {
         var generateUID = function () { return '_' + Math.random().toString(36).substr(2, 9); };
@@ -49,7 +77,9 @@ var setup_data_gathering = function(){
         var c = document.getElementById("plotting_canvas");
         var UID = getUID();
 
-        data = {"tracking": tracking_data, "viewport": {w: c.width, h: c.height}, "accuracy": accuracy_data, "UID": UID};
+        data = {"tracking": tracking_data, "viewport": {w: c.width, h: c.height},
+                "accuracy": accuracy_data, "UID": UID,
+                "imageurl": imgurl};
         var json_data = JSON.stringify(data);
         xmlhttp.send(json_data)
     };

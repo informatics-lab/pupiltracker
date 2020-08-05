@@ -25,11 +25,9 @@ var setup_data_gathering = function(){
         var generateUID = function () { return '_' + Math.random().toString(36).substr(2, 9); };
         UIDcookie = document.cookie.split('; ').find(row => row.startsWith('UID'));
         if (UIDcookie == undefined){
-            console.log("no cookie")
             var UID = generateUID();
             document.cookie = "UID="+UID;    
         }else{
-            console.log("cookie found")
             var UID = UIDcookie.split('=')[1];
         }
         
@@ -38,7 +36,8 @@ var setup_data_gathering = function(){
 
     var dump_pupil_data = function(){
         xmlhttp = new XMLHttpRequest();
-        var url = "http://localhost:5000/save-data";
+        var url = "save-data";
+        console.log(url)
         xmlhttp.open("POST", url, true);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "true");
@@ -49,7 +48,6 @@ var setup_data_gathering = function(){
         }
         var c = document.getElementById("plotting_canvas");
         var UID = getUID();
-        console.log(UID)
 
         data = {"tracking": tracking_data, "viewport": {w: c.width, h: c.height}, "accuracy": accuracy_data, "UID": UID};
         var json_data = JSON.stringify(data);

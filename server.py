@@ -11,8 +11,8 @@ def main_page():
 def save_data():
     pupil_data = request.json
 
-    with open("./analysis/pupil_data.json", "w") as f:
-        json.dump(pupil_data, f)
+    # with open("./analysis/pupil_data.json", "w") as f:
+    #     json.dump(pupil_data, f)
 
     return "200"
 

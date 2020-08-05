@@ -21,6 +21,19 @@ var setup_data_gathering = function(){
 
     }).begin();
 
+    var getUID = function() {
+        var generateUID = function () { return '_' + Math.random().toString(36).substr(2, 9); };
+        UIDcookie = document.cookie.split('; ').find(row => row.startsWith('UID'));
+        if (UIDcookie == undefined){
+            var UID = generateUID();
+            document.cookie = "UID="+UID;    
+        }else{
+            var UID = UIDcookie.split('=')[1];
+        }
+        
+        return UID
+    };
+
     var dump_pupil_data = function(){
         xmlhttp = new XMLHttpRequest();
         var url = "http://localhost:5000/save-data";
@@ -33,8 +46,10 @@ var setup_data_gathering = function(){
             }
         }
         var c = document.getElementById("plotting_canvas");
+        // var UID = getUID();
+        var UID = "42"
 
-        data = {"tracking": tracking_data, "viewport": {w: c.width, h: c.height}, "accuracy": accuracy_data}
+        data = {"tracking": tracking_data, "viewport": {w: c.width, h: c.height}, "accuracy": accuracy_data, "UID": UID};
         var json_data = JSON.stringify(data);
         xmlhttp.send(json_data)
     };

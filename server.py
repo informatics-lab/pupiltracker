@@ -7,6 +7,10 @@ app = Flask(__name__, static_url_path='', static_folder="static")
 def main_page():
     return app.send_static_file("./main.html")
 
+# @app.route('/get-image', methods['GET'])
+# def get_image():
+#     return 200
+
 @app.route('/save-data', methods=['POST'])
 def save_data():
     pupil_data = request.json

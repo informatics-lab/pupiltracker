@@ -9,7 +9,7 @@ app = Flask(__name__, static_url_path='', static_folder="static")
 
 @app.route('/')
 def main_page():
-    return app.send_static_file("./main.html")
+    return app.send_static_file("./landing.html")
 
 
 @app.route('/get-image-url', methods=['GET'])

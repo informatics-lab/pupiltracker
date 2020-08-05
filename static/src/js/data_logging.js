@@ -115,9 +115,11 @@ var setup_data_gathering = function(){
     document.getElementById("session").onclick = function (){
         record_tracking_data = !record_tracking_data
         if(record_tracking_data){ //save
+            tracking_data = [];
             document.getElementById("session").innerHTML = "Stop recording";
             document.getElementById("plotting_canvas").style.display = "block";
         }else{ // start recording
+            setup_canvas(); // see if we can load another random image in for next time (may get same one)
             document.getElementById("session").innerHTML = "Start recording";
             document.getElementById("plotting_canvas").style.display = "none";
             dump_pupil_data()

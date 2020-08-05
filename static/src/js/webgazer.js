@@ -45879,6 +45879,10 @@ function store_points(x, y, k) {
         return [webgazer.params.videoViewerWidth / videoElement.videoWidth, webgazer.params.videoViewerHeight / videoElement.videoHeight];
     }
 
+    webgazer.clearData = function(){
+        return clearData();
+    }
+
 }(window));
 
 //# sourceMappingURL=webgazer.js.map

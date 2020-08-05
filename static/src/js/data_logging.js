@@ -4,11 +4,13 @@ var setup_data_gathering = function(){
 
     var tracking_data = [];
     var accuracy_data = [];
-    var data = {x: null, y: null};
     var imgurl = null;
     
     webgazer.setGazeListener(function(data, elapsedTime) {
         Promise.all([data, elapsedTime]).then(function(valArray) {
+            if (data == null) {
+                   return;
+            }
             var data = valArray[0];
             var elapsedTime = valArray[1];
             var x = data.x; //these x coordinates are relative to the viewport

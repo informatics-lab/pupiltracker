@@ -18,5 +18,5 @@ def save_data():
 
 
 if __name__ == "__main__":
-    app.run(ssl_context='adhoc')
-    # app.run()
+    app.run(ssl_context='adhoc') # this line for local deployment
+    # app.run()                  # this line for zappa cloud deployment 

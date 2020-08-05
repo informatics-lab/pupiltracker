@@ -25,9 +25,11 @@ var setup_data_gathering = function(){
         var generateUID = function () { return '_' + Math.random().toString(36).substr(2, 9); };
         UIDcookie = document.cookie.split('; ').find(row => row.startsWith('UID'));
         if (UIDcookie == undefined){
+            console.log("no cookie")
             var UID = generateUID();
             document.cookie = "UID="+UID;    
         }else{
+            console.log("cookie found")
             var UID = UIDcookie.split('=')[1];
         }
         
@@ -46,8 +48,8 @@ var setup_data_gathering = function(){
             }
         }
         var c = document.getElementById("plotting_canvas");
-        // var UID = getUID();
-        var UID = "42"
+        var UID = getUID();
+        console.log(UID)
 
         data = {"tracking": tracking_data, "viewport": {w: c.width, h: c.height}, "accuracy": accuracy_data, "UID": UID};
         var json_data = JSON.stringify(data);
@@ -82,7 +84,6 @@ var setup_data_gathering = function(){
 
     document.getElementById("session").onclick = function (){
         record_tracking_data = !record_tracking_data
-        console.log(record_tracking_data)
         if(record_tracking_data){ //save
             document.getElementById("session").innerHTML = "Stop recording";
             document.getElementById("plotting_canvas").style.display = "block";

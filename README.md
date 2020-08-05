@@ -9,11 +9,9 @@ You will need conda
 1. `cd pupiltracker`
 1. `conda env create -f environment.yml`
 1. `conda activate pupiltracking`
-1. `openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes`
-1. `python simple-https-server.py`
-1. in a new terminal `conda activate pupiltracking` and then `python data-server.py`
-1. in a browser go to http://localhost:4443/main.html
-1. Get rid of the warning about security!
+1. `python server.py`
+1. in a browser go to http://localhost:5000
+1. Get rid of the warning about security if you get it!
 
 ## Use
 1. wait until the app has locked on to your face

@@ -2,5 +2,6 @@ server.pem
 analysis/pupil_data.json
 *__pycache__*
 Pipfile.lock
+zappa*
 requirements.txt
 secrets.sh

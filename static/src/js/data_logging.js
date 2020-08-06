@@ -28,14 +28,13 @@ var setup_data_gathering = function(){
 
     var update_image = function(){
         if (imgurls.length == 0){
-            xmlhttp = new XMLHttpRequest();
+            var xmlhttp = new XMLHttpRequest();
             var api_urls = "get-image-urls";
             xmlhttp.open("GET", api_urls);
             xmlhttp.setRequestHeader("subdomain", window.location.hostname.split(".")[0])
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     imgurls = JSON.parse(xmlhttp.responseText);
-                    console.log(imgurls)
                     imgurl = imgurls.pop();
                     img.src = imgurl;
                 }
@@ -45,7 +44,6 @@ var setup_data_gathering = function(){
             imgurl = imgurls.pop();
             img.src = imgurl;
         }
-        console.log(imgurls)
     }
 
         //Set up the webgazer video feedback.
@@ -131,16 +129,15 @@ var setup_data_gathering = function(){
 
     document.getElementById("session").onclick = function (){
         record_tracking_data = !record_tracking_data
-        if(record_tracking_data){ //save
+        if(record_tracking_data){
             tracking_data = [];
             document.getElementById("session").innerHTML = "Stop recording";
             document.getElementById("plotting_canvas").style.display = "block";
-        }else{ // start recording
-            setup_canvas(); // see if we can load another random image in for next time (may get same one)
+        }else{
+            update_image()
             document.getElementById("session").innerHTML = "Start recording";
             document.getElementById("plotting_canvas").style.display = "none";
             dump_pupil_data()
-            update_image()
         }
     };
 };

@@ -6,3 +6,4 @@ zappa*
 requirements.txt
 secrets.sh
 *png
+pupiltracker*json

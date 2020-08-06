@@ -3,15 +3,17 @@
 This proof of concept demonstrates how we could use pupil tracking to investigate how people ingest information from atmospheric science visualisations.
 
 ## Installation/Setup
-You will need conda
+You will need pipenv which you can install with `pip install pipenv`
 
 1. `git clone git@github.com:niallrobinson/pupiltracker.git`
 1. `cd pupiltracker`
-1. `conda env create -f environment.yml`
-1. `conda activate pupiltracking`
+1. `pipenv install`
+1. `pipenv shell`
 1. `python server.py`
 1. in a browser go to http://localhost:5000
 1. Get rid of the warning about security if you get it!
+
+If you want to use `analysis.py` you will have to install Iris using Conda.
 
 ## Use
 1. wait until the app has locked on to your face

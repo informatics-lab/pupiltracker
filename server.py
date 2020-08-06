@@ -27,6 +27,7 @@ def get_an_image_url():
         imgs = os.listdir("./static/test_images")
         img = random.choice(imgs)
         url = "test_images/" + img
+    print(url)
     return make_response(url)
 
 

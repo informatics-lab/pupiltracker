@@ -4,6 +4,7 @@ var setup_data_gathering = function(){
 
     var tracking_data = [];
     var accuracy_data = [];
+    var imgurls = [];
     var imgurl = null;
     
     webgazer.setGazeListener(function(data, elapsedTime) {
@@ -25,6 +26,28 @@ var setup_data_gathering = function(){
 
     }).begin();
 
+    var update_image = function(){
+        if (imgurls.length == 0){
+            xmlhttp = new XMLHttpRequest();
+            var api_urls = "get-image-urls";
+            xmlhttp.open("GET", api_urls);
+            xmlhttp.setRequestHeader("subdomain", window.location.hostname.split(".")[0])
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    imgurls = JSON.parse(xmlhttp.responseText);
+                    console.log(imgurls)
+                    imgurl = imgurls.pop();
+                    img.src = imgurl;
+                }
+            }
+            xmlhttp.send()
+        }else{
+            imgurl = imgurls.pop();
+            img.src = imgurl;
+        }
+        console.log(imgurls)
+    }
+
         //Set up the webgazer video feedback.
     var setup_canvas = function() {
         //Set up the main canvas. The main canvas is used to calibrate the webgazer.
@@ -34,25 +57,16 @@ var setup_data_gathering = function(){
         canvas.style.position = 'fixed';
         canvas.style.display = 'none'; //hidden by default
 
-        var img = new Image();   // Create new img element
+        
         img.addEventListener('load', function() {
             canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height); // what about aspect ratio
         }, false);
-
-        xmlhttp = new XMLHttpRequest();
-        var api_url = "get-image-url";
-        xmlhttp.open("GET", api_url);
-        xmlhttp.setRequestHeader("subdomain", window.location.hostname.split(".")[0])
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                imgurl = xmlhttp.responseText;
-                console.log(imgurl)
-                img.src = imgurl; // this may be problematic if it takes time to load
-            }
-        }
-        xmlhttp.send()
     };
-    setup_canvas();
+
+    var canvas = document.getElementById("plotting_canvas");
+    var img = new Image();   // Create new img element
+    setup_canvas()
+    update_image()
 
     var getUID = function() {
         var generateUID = function () { return '_' + Math.random().toString(36).substr(2, 9); };
@@ -126,6 +140,7 @@ var setup_data_gathering = function(){
             document.getElementById("session").innerHTML = "Start recording";
             document.getElementById("plotting_canvas").style.display = "none";
             dump_pupil_data()
+            update_image()
         }
     };
 };

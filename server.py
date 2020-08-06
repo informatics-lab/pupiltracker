@@ -13,22 +13,22 @@ def main_page():
     return app.send_static_file("./landing.html")
 
 
-@app.route('/get-image-url', methods=['GET'])
+@app.route('/get-image-urls', methods=['GET'])
 def get_an_image_url():
     subdomain = request.headers.get('subdomain')
 
     s3_client = boto3.client('s3')
     if subdomain != "localhost":
         response = s3_client.list_objects_v2(Bucket=subdomain, Prefix="images/")
-        imgs = response["Contents"][1:] # strip off the folker itsself
-        img = random.choice(imgs)
-        url = "https://"+subdomain+".s3.eu-west-2.amazonaws.com/" + img["Key"]
+        urls =  ["https://"+subdomain+".s3.eu-west-2.amazonaws.com/" + img["Key"] for img in response["Contents"][1:]]
+        random.shuffle(urls)
     else:
         imgs = os.listdir("./static/test_images")
-        img = random.choice(imgs)
-        url = "test_images/" + img
-    print(url)
-    return make_response(url)
+        urls = ["test_images/" + img for img in imgs]
+
+    print(urls)
+
+    return make_response(json.dumps(urls))
 
 
 @app.route('/save-data', methods=['POST'])

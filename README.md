@@ -54,6 +54,9 @@ Analysis code is in the `analysis` directory. `generate.py` takes the local NetC
 Todo:
 * investigate accuracy [DONE?]
 * adapt the data saving to send a proper json and not hide stuff in the parameters [DONE]
-* use cartopy to do the lookup of data taking the image projection into account.
 * calibrate on mouseclick [DONE]
 * heatmap creator [DONE]
+* add comment box below
+* add Iris to pipenv
+* add heatmap processing to backend API
+* add more images

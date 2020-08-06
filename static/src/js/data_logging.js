@@ -42,9 +42,11 @@ var setup_data_gathering = function(){
         xmlhttp = new XMLHttpRequest();
         var api_url = "get-image-url";
         xmlhttp.open("GET", api_url);
+        xmlhttp.setRequestHeader("subdomain", window.location.hostname.split(".")[0])
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 imgurl = xmlhttp.responseText;
+                console.log(imgurl)
                 img.src = imgurl; // this may be problematic if it takes time to load
             }
         }
@@ -69,6 +71,7 @@ var setup_data_gathering = function(){
         xmlhttp = new XMLHttpRequest();
         var url = "save-data";
         xmlhttp.open("POST", url, true);
+        xmlhttp.setRequestHeader("subdomain", window.location.hostname.split(".")[0])
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "true");
         xmlhttp.onreadystatechange = function () { //Call a function when the state changes.

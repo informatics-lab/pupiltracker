@@ -41,8 +41,8 @@ def save_data():
     if subdomain != "localhost":
         with open("/tmp/"+file_name, "w") as f:
             json.dump(pupil_data, f)
-            s3_client = boto3.client('s3')
-            s3_client.upload_file("/tmp/"+file_name, subdomain, "tracking_data/"+file_name)   
+        s3_client = boto3.client('s3')
+        s3_client.upload_file("/tmp/"+file_name, subdomain, "tracking_data/"+file_name)   
     else:
         with open("/tmp/"+file_name, "w") as f:
             json.dump(pupil_data, f)

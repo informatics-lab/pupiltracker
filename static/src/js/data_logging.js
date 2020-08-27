@@ -16,6 +16,7 @@ var setup_data_gathering = function(){
             var elapsedTime = valArray[1];
             var x = data.x; //these x coordinates are relative to the viewport
             var y = data.y; //these y coordinates are relative to the viewport
+            console.log(record_tracking_data)
             if(record_tracking_data){
                 tracking_data.push({x: x, y: y, t: elapsedTime});
             }

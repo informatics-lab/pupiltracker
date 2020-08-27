@@ -36,7 +36,7 @@ To view a heatmap of your session
 ## Top tips
 * Make sure your face/eyes are well illuminated
 * Bigger screen will increase the accuracy. You can use an external monitor as long as your webcam has a good view of your face.
-# Try to keep your head still and inside the box
+* Try to keep your head still and inside the box
 
 ---
 

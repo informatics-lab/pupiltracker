@@ -45,7 +45,7 @@ window.onload = function(){
 window.applyKalmanFilter = true;
 
 // Set to true if you want to save the data even if you reload the page.
-window.saveDataAcrossSessions = false;
+window.saveDataAcrossSessions = true;
 
 window.onbeforeunload = function() {
     webgazer.end();

@@ -37,15 +37,16 @@ def save_data():
 
     file_name = time.strftime("%Y%m%d%H%M%S") + ".json"
     pupil_data = request.json
+    print(pupil_data)
 
-    if subdomain != "localhost":
+    if subdomain == "localhost" or subdomain == "127.0.0.1":
+        with open("/tmp/"+file_name, "w") as f:
+            json.dump(pupil_data, f)
+    else:
         with open("/tmp/"+file_name, "w") as f:
             json.dump(pupil_data, f)
         s3_client = boto3.client('s3')
         s3_client.upload_file("/tmp/"+file_name, subdomain, "tracking_data/"+file_name)   
-    else:
-        with open("/tmp/"+file_name, "w") as f:
-            json.dump(pupil_data, f)
     
     return "200"
 
